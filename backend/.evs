@@ -1,0 +1,2 @@
+PORT=5000
+ATLAS_URI=tu_conexion_mongodb_atlas_o_local

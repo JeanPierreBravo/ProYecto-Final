@@ -1,0 +1,156 @@
+:root {
+  --steam-dark: #171a21;
+  --steam-darker: #1b2838;
+  --steam-blue: #1b2838;
+  --steam-light-blue: #66c0f4;
+  --steam-green: #5c7e10;
+  --steam-gray: #c7d5e0;
+}
+
+body {
+  background-color: var(--steam-darker);
+  color: var(--steam-gray);
+  font-family: 'Arial', sans-serif;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1;
+}
+
+/* Navbar estilo Steam */
+.navbar {
+  background-color: var(--steam-dark) !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-brand {
+  color: var(--steam-light-blue) !important;
+  font-weight: bold;
+}
+
+.nav-link {
+  color: var(--steam-gray) !important;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: var(--steam-light-blue) !important;
+}
+
+/* Tarjetas de juegos estilo Steam */
+.game-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  height: 100%;
+  background-color: var(--steam-blue);
+  border: none;
+  border-radius: 4px;
+  overflow: hidden;
+  color: var(--steam-gray);
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.game-card .card-body {
+  padding: 15px;
+}
+
+.game-card .card-title {
+  font-weight: bold;
+  color: white;
+}
+
+.game-card .card-subtitle {
+  color: var(--steam-light-blue) !important;
+}
+
+.game-cover {
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.game-card:hover .game-cover {
+  transform: scale(1.05);
+}
+
+.star-rating {
+  color: #ffc107;
+  font-size: 1.2rem;
+}
+
+.completed-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: var(--steam-green) !important;
+  font-weight: normal;
+  padding: 5px 10px;
+}
+
+/* Botones estilo Steam */
+.btn-primary {
+  background-color: var(--steam-light-blue);
+  border-color: var(--steam-light-blue);
+}
+
+.btn-success {
+  background-color: var(--steam-green);
+  border-color: var(--steam-green);
+}
+
+.btn-outline-secondary {
+  color: var(--steam-gray);
+  border-color: var(--steam-gray);
+}
+
+/* Formularios estilo Steam */
+.form-control, .form-select {
+  background-color: #2a3f5f;
+  border: 1px solid #4a6891;
+  color: var(--steam-gray);
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: #2a3f5f;
+  color: white;
+  border-color: var(--steam-light-blue);
+  box-shadow: 0 0 0 0.25rem rgba(102, 192, 244, 0.25);
+}
+
+/* Filtros y búsqueda */
+.filters-container {
+  background-color: rgba(27, 40, 56, 0.8);
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+/* Footer estilo Steam */
+footer {
+  background-color: var(--steam-dark) !important;
+  padding: 20px 0;
+  margin-top: 30px;
+}
+
+/* Estadísticas */
+.stats-card {
+  background-color: var(--steam-blue);
+  border: none;
+  border-left: 4px solid var(--steam-light-blue);
+  transition: transform 0.3s;
+  color: var(--steam-gray);
+  margin-bottom: 15px;
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+}
