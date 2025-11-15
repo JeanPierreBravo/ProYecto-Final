@@ -53,7 +53,7 @@ const DetalleJuego = ({ userId }) => {
       <Row>
         <Col md={4}>
           <Card className="game-card mb-4">
-            <Card.Img variant="top" src={game.imageUrl || 'https://via.placeholder.com/300x450'} className="game-cover" />
+            <Card.Img variant="top" src={game.coverImage || 'https://via.placeholder.com/300x450'} className="game-cover" />
             {game.completed && (
               <div className="completed-badge">
                 <Badge bg="success">Completado</Badge>

@@ -64,3 +64,4 @@ const TarjetaJuego = ({ game, onDelete }) => {
 };
 
 export default TarjetaJuego;
+

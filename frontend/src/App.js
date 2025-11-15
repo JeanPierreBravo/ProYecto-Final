@@ -14,6 +14,7 @@ import FormularioJuego from './pages/FormularioJuego';
 import ListaReseñas from './pages/ListaReseñas';
 import FormularioReseña from './pages/FormularioReseña';
 import EstadisticasPersonales from './pages/EstadisticasPersonales';
+import CargarEjemplos from './pages/CargarEjemplos';
 
 function App() {
   // Simulamos un ID de usuario (en una aplicación real usarías autenticación)
@@ -34,6 +35,7 @@ function App() {
             <Route path="/agregar-reseña/:gameId" element={<FormularioReseña userId={userId} />} />
             <Route path="/editar-reseña/:id" element={<FormularioReseña userId={userId} />} />
             <Route path="/estadisticas" element={<EstadisticasPersonales userId={userId} />} />
+            <Route path="/cargar-ejemplos" element={<CargarEjemplos userId={userId} />} />
           </Routes>
         </div>
         <Footer />

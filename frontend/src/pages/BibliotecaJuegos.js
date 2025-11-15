@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Row, Col, Button, Form, InputGroup, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaSearch, FaPlus, FaFilter, FaSortAmountDown } from 'react-icons/fa';
@@ -19,9 +20,19 @@ const BibliotecaJuegos = ({ userId }) => {
   const [genres, setGenres] = useState([]);
   const [platforms, setPlatforms] = useState([]);
 
+  const location = useLocation();
+
   useEffect(() => {
     loadGames();
   }, [userId]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const q = params.get('search') || params.get('q');
+    if (q !== null) {
+      setSearchTerm(q);
+    }
+  }, [location.search]);
 
   useEffect(() => {
     if (games.length > 0) {

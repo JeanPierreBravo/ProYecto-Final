@@ -31,18 +31,19 @@ const ListaReseñas = ({ userId }) => {
   }, [userId]);
 
   useEffect(() => {
-    // Filtrar reseñas según el término de búsqueda
     const filtered = reviews.filter(review => {
-      const game = games.find(g => g._id === review.gameId);
-      const gameTitle = game ? game.title.toLowerCase() : '';
-      
+      const reviewGameId = typeof review.gameId === 'object' ? review.gameId._id : review.gameId;
+      const fromReviewTitle = typeof review.gameId === 'object' ? (review.gameId.title || '') : '';
+      const game = games.find(g => g._id === reviewGameId);
+      const gameTitle = (game ? game.title : fromReviewTitle).toLowerCase();
+
       return (
         review.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         review.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
         gameTitle.includes(searchTerm.toLowerCase())
       );
     });
-    
+
     setFilteredReviews(filtered);
   }, [reviews, games, searchTerm]);
 
@@ -57,8 +58,11 @@ const ListaReseñas = ({ userId }) => {
     }
   };
 
-  const getGameTitle = (gameId) => {
-    const game = games.find(g => g._id === gameId);
+  const getGameTitle = (review) => {
+    if (typeof review.gameId === 'object') {
+      return review.gameId.title || 'Juego desconocido';
+    }
+    const game = games.find(g => g._id === review.gameId);
     return game ? game.title : 'Juego desconocido';
   };
 
@@ -90,8 +94,8 @@ const ListaReseñas = ({ userId }) => {
               <Card className="h-100">
                 <Card.Header>
                   <div className="d-flex justify-content-between align-items-center">
-                    <Link to={`/juegos/${review.gameId}`} className="text-decoration-none">
-                      {getGameTitle(review.gameId)}
+                    <Link to={`/juegos/${typeof review.gameId === 'object' ? review.gameId._id : review.gameId}`} className="text-decoration-none">
+                      {getGameTitle(review)}
                     </Link>
                     <div className="star-rating">
                       {[...Array(5)].map((_, i) => (

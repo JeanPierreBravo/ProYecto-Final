@@ -29,17 +29,17 @@ const FormularioReseña = ({ userId }) => {
         if (id) {
           const reviewResponse = await getReviewById(id);
           const review = reviewResponse.data;
-          
+          const reviewGameId = typeof review.gameId === 'object' ? review.gameId._id : review.gameId;
+
           setFormData({
             title: review.title,
             content: review.content,
             rating: review.rating,
-            gameId: review.gameId,
+            gameId: reviewGameId,
             userId: userId
           });
-          
-          // Cargar información del juego
-          const gameResponse = await getGameById(review.gameId);
+
+          const gameResponse = await getGameById(reviewGameId);
           setGame(gameResponse.data);
         } 
         // Si tenemos un gameId, estamos creando una reseña para un juego específico

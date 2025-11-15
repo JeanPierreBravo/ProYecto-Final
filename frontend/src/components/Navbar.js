@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Navbar as BootstrapNavbar, Nav, Container, Form, Button, InputGroup } from 'react-bootstrap';
 import { FaSearch, FaUserCircle } from 'react-icons/fa';
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Implementar búsqueda global si se desea
-    console.log('Búsqueda:', searchQuery);
+    const q = (searchQuery || '').trim();
+    if (q) {
+      navigate(`/juegos?search=${encodeURIComponent(q)}`);
+    } else {
+      navigate('/juegos');
+    }
   };
 
   return (
@@ -17,11 +22,12 @@ const Navbar = () => {
       <Container>
         <BootstrapNavbar.Brand as={Link} to="/">
           <img
-            src="/logo.png"
-            width="30"
-            height="30"
+            src="https://lh3.googleusercontent.com/gg-dl/ABS2GSkcIbSH7qC1ck6mLzRgNq7xBh0w4VegA-7bo3-DW5dn4725XhW8K5B-XKODyO_A2aWhNbBC_SA0LtdXFa0D64CX7LUZAe6H834a2ueFMq9lr31Mg5WqrYaG2XGlUz-QJNi9xs55326bGja1l0nZsTBIG1lI1RYRPRTeq6xcVdak76c5rg=s1024-rj"
+            width="34"
+            height="34"
             className="d-inline-block align-top me-2"
-            alt="GameTracker Logo"
+            alt="Game Tracker"
+            onError={(e) => { e.currentTarget.src = '/logo.png'; }}
           />
           GameTracker
         </BootstrapNavbar.Brand>
