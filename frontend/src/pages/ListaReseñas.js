@@ -32,15 +32,16 @@ const ListaReseñas = ({ userId }) => {
 
   useEffect(() => {
     const filtered = reviews.filter(review => {
-      const reviewGameId = typeof review.gameId === 'object' ? review.gameId._id : review.gameId;
-      const fromReviewTitle = typeof review.gameId === 'object' ? (review.gameId.title || '') : '';
-      const game = games.find(g => g._id === reviewGameId);
-      const gameTitle = (game ? game.title : fromReviewTitle).toLowerCase();
+      const isObj = review.gameId && typeof review.gameId === 'object';
+      const reviewGameId = isObj ? (review.gameId?._id || null) : review.gameId;
+      const fromReviewTitle = isObj ? (review.gameId?.title || '') : '';
+      const game = reviewGameId ? games.find(g => g._id === reviewGameId) : null;
+      const gameTitle = ((game && game.title) || fromReviewTitle || '').toLowerCase();
 
       return (
-        review.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        review.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        gameTitle.includes(searchTerm.toLowerCase())
+        (review.title || '').toLowerCase().includes((searchTerm || '').toLowerCase()) ||
+        (review.content || '').toLowerCase().includes((searchTerm || '').toLowerCase()) ||
+        gameTitle.includes((searchTerm || '').toLowerCase())
       );
     });
 
@@ -59,11 +60,12 @@ const ListaReseñas = ({ userId }) => {
   };
 
   const getGameTitle = (review) => {
-    if (typeof review.gameId === 'object') {
-      return review.gameId.title || 'Juego desconocido';
+    const isObj = review.gameId && typeof review.gameId === 'object';
+    if (isObj) {
+      return review.gameId?.title || 'Juego eliminado';
     }
     const game = games.find(g => g._id === review.gameId);
-    return game ? game.title : 'Juego desconocido';
+    return game ? game.title : 'Juego eliminado';
   };
 
   if (loading) {
@@ -94,9 +96,16 @@ const ListaReseñas = ({ userId }) => {
               <Card className="h-100">
                 <Card.Header>
                   <div className="d-flex justify-content-between align-items-center">
-                    <Link to={`/juegos/${typeof review.gameId === 'object' ? review.gameId._id : review.gameId}`} className="text-decoration-none">
-                      {getGameTitle(review)}
-                    </Link>
+                    {(() => {
+                      const isObj = review.gameId && typeof review.gameId === 'object';
+                      const targetId = isObj ? (review.gameId?._id || null) : review.gameId;
+                      const href = targetId ? `/juegos/${targetId}` : '/juegos';
+                      return (
+                        <Link to={href} className="text-decoration-none">
+                          {getGameTitle(review)}
+                        </Link>
+                      );
+                    })()}
                     <div className="star-rating">
                       {[...Array(5)].map((_, i) => (
                         <FaStar key={i} color={i < review.rating ? "#ffc107" : "#e4e5e9"} size={14} />
@@ -131,3 +140,4 @@ const ListaReseñas = ({ userId }) => {
 };
 
 export default ListaReseñas;
+

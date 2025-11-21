@@ -1,4 +1,5 @@
 const Game = require('../models/game.model');
+const Review = require('../models/review.model');
 
 // Obtener todos los juegos con filtros
 exports.getGames = async (req, res) => {
@@ -112,6 +113,7 @@ exports.deleteGame = async (req, res) => {
       return res.status(403).json('No autorizado para eliminar este juego');
     }
     
+    await Review.deleteMany({ gameId: req.params.id });
     await Game.findByIdAndDelete(req.params.id);
     res.json('Juego eliminado correctamente');
   } catch (err) {

@@ -22,12 +22,11 @@ const Navbar = () => {
       <Container>
         <BootstrapNavbar.Brand as={Link} to="/">
           <img
-            src="https://lh3.googleusercontent.com/gg-dl/ABS2GSkcIbSH7qC1ck6mLzRgNq7xBh0w4VegA-7bo3-DW5dn4725XhW8K5B-XKODyO_A2aWhNbBC_SA0LtdXFa0D64CX7LUZAe6H834a2ueFMq9lr31Mg5WqrYaG2XGlUz-QJNi9xs55326bGja1l0nZsTBIG1lI1RYRPRTeq6xcVdak76c5rg=s1024-rj"
+            src="/logo.svg"
             width="34"
             height="34"
             className="d-inline-block align-top me-2"
-            alt="Game Tracker"
-            onError={(e) => { e.currentTarget.src = '/logo.png'; }}
+            alt="GameTracker"
           />
           GameTracker
         </BootstrapNavbar.Brand>
